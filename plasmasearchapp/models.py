@@ -47,7 +47,8 @@ class Userinfo(models.Model):
     quartype = models.CharField(max_length=30,choices=quartypes)
     govtid = models.ImageField()
     bloodgroup = models.CharField(max_length=30,choices=bgtypes)
-
+    lat = models.CharField(max_length=30 , null = True)
+    long = models.CharField(max_length=30, null = True)
     def __str__(self):
         return self.user.username
 
@@ -72,16 +73,5 @@ class requestplasma(models.Model):
     def __str__(self):
         return self.donor.username
 
-class Userlatlong(models.Model):
 
-    user= models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        null = True
-    )
-    lat = models.CharField(max_length=30)
-    long = models.CharField(max_length=30)
-    
-    def __str__(self):
-        return self.user.username
 

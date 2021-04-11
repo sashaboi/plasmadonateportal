@@ -6,7 +6,7 @@ from .forms import CreateUserform ,userinfoform
 from django.contrib import messages
 from django.contrib.auth import authenticate , login , logout
 from django.contrib.auth.decorators import login_required
-from .models import Userinfo ,requestplasma
+from .models import Userinfo ,requestplasma 
 from django.contrib.auth.models import User
 from geopy import distance
 
@@ -137,13 +137,17 @@ def latlong(request):
     return render(request, 'plasmasearchapp/latlong.html')
 
 def testingpost(request):
+    userlog = request.user
     if request.method == "POST":
-        print(request.POST)
+        print(request.POST['lat'])
+        alat = request.POST['lat']
+        along = request.POST['long']
         
-    resp = {
-
-    }
-    return JsonResponse(resp)
+        Userinfo.objects.filter(user=userlog).update(lat=alat)
+        Userinfo.objects.filter(user=userlog).update(long=along)
+        
+        return redirect('doneedash')
+    
 
 def infoform(request):
     form = userinfoform()
