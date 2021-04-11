@@ -1,0 +1,15 @@
+{% load static %}
+
+<h1>donor dash</h1>
+
+{% for req in plasmarequests %}
+recipient : {{req.donee}}<br>
+request date : {{req.timestamp}}<br>
+<form action="" method = "POST">
+  {% csrf_token %}
+  <input type="hidden" id="userid" name="userid" value={{req.donee}}>
+  <input class="btn btn-secondary" type="submit" value="Approve">
+</form>
+
+
+{% endfor %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to get your coordinates.</p>
+
+<button onclick="getLocation()">Try It</button>
+
+<p><strong>Note:</strong> The geolocation property is not supported in IE8 and earlier versions.</p>
+<form action="" id="form">
+  <input type="text" id="formid">
+  <input type="submit" value="submit">
+</form>
+<p id="demo"></p>
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  var lat = position.coords.latitude
+  var long = position.coords.longitude
+  
+  x.innerHTML = "Latitude: " + position.coords.latitude + 
+  "<br>Longitude: " + position.coords.longitude;
+
+
+
+
+  var form = document.getElementById("form")
+  form.addEventListener("submit" , function(e){
+    e.preventDefault()
+    
+    var fd = new FormData()
+    
+    fd.append("lat" , lat)
+    fd.append("long" , long)
+    
+    
+    
+    fd.append("csrfmiddlewaretoken" , "{{csrf_token}}")
+    axios.post("testingpost" , fd)
+      .then(function(resp){
+        if(resp.data.status === "success"){
+          form.reset()
+        }
+      })
+      .catch(function(err){
+        console.log(err)
+      })
+  })
+}
+
+
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+</body>
+</html>
