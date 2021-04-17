@@ -1,0 +1,29 @@
+body{background: #fbfbfb url(../assets/images/wawes.svg) no-repeat fixed bottom;}
+.btn.homepage-btn{}
+.banner-heading{margin:4.5em 0 2em;}
+.banner-heading h1{font-weight: 500;font-size: 52px;line-height: 1.4;letter-spacing: 0.02em;color:#43454C;}
+.banner-heading h1 span {color: #B73030;}
+.linkTxt{margin: 1.5em 0 0;font-family: 'Clash Display',sans-serif;font-weight: 500;letter-spacing: 0.1em;color: #43454C;}
+.link, .link:hover {font-weight: 600;color: #B73030;text-decoration: none;}
+@media screen and (max-width:576px) {
+    .banner-heading h1{
+        font-size: 40px;
+    }
+}
+@media screen and (max-width:411px) {
+    .banner-heading h1{
+        font-size: 32px;
+    }
+    .banner-heading h1 br {
+        display: none;
+    }
+    .banner-heading {
+        margin: 3.5em 0 2em;
+    }
+    .btn {
+        font-size: 12px;
+    }
+    .linkTxt {
+        font-size: 14px;
+    }
+}

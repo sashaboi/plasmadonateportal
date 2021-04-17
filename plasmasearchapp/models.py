@@ -40,7 +40,6 @@ class Userinfo(models.Model):
     phoneno = models.CharField(max_length=10)
     age = models.CharField(max_length=10)
     gender = models.CharField(max_length=30,choices=genderchoices)
-    
     desctext =models.CharField(max_length=30)
     covidnegcert = models.ImageField(null=True)
     covidnegdate = models.DateField()
@@ -49,6 +48,8 @@ class Userinfo(models.Model):
     bloodgroup = models.CharField(max_length=30,choices=bgtypes)
     lat = models.CharField(max_length=30 , null = True)
     long = models.CharField(max_length=30, null = True)
+    sentotp = models.CharField(max_length=30, null = True)
+    phoneverified = models.BooleanField(default=False)
     def __str__(self):
         return self.user.username
 

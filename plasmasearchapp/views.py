@@ -9,7 +9,11 @@ from django.contrib.auth.decorators import login_required
 from .models import Userinfo ,requestplasma 
 from django.contrib.auth.models import User
 from geopy import distance
-
+import folium 
+from .decorators import unauthenticated_user 
+from django.contrib.auth.decorators import login_required
+import random
+from .sms import send_sms
 
 
 
@@ -18,7 +22,7 @@ def home(request):
     print(request.user)
     return render(request, 'plasmasearchapp/index.html')
 
-
+@login_required(login_url='login')
 def donordash(request):
     userlog = request.user
     print(userlog)
@@ -44,7 +48,7 @@ def donordash(request):
     return render(request, 'plasmasearchapp/donordash.html',context)
 
 
-
+@login_required(login_url='login')
 def doneedash(request):
     userlog = request.user
     printlat = Userinfo.objects.get(user=userlog).lat
@@ -53,6 +57,10 @@ def doneedash(request):
     userlist = []
     distancea = []
     userbg = Userinfo.objects.get(user=userlog).bloodgroup
+    m = folium.Map(location =[printlat, printlong], zoom_start = 15)
+    
+
+
     for user in Userinfo.objects.all():
         if user.type == 'donor':
             print('user is donor')
@@ -61,10 +69,14 @@ def doneedash(request):
             if dist < int(100):
                 print('user is within 5 km')
                 print(user.bloodgroup)
+                
                 if userbg == (user.bloodgroup):
                     print('bg matches')
                     userlist.append(user)
                     distancea.append(dist)
+                    userlat = user.lat
+                    userlong = user.long
+                    folium.Marker(location =[userlat, userlong] , tooltip =(user.first_name , user.last_name)).add_to(m)
 
     
 
@@ -85,14 +97,14 @@ def doneedash(request):
         
     
 
+    m = m._repr_html_()
 
-
-    context = {'userlist' : userlist }
+    context = {'userlist' : userlist , 'm': m}
 
     return render(request, 'plasmasearchapp/doneedash.html',context)
 
 
-
+@unauthenticated_user
 def signup(request):
     form = CreateUserform()
     if request.method == 'POST':
@@ -112,6 +124,7 @@ def signup(request):
     context = {'form': form}
     return render(request, 'plasmasearchapp/signup.html',context)
     
+@unauthenticated_user
 def loginpage(request):
     if request.method == 'POST':
         usernamea= request.POST.get('username')
@@ -130,12 +143,14 @@ def logoutpage(request):
     logout(request)
     return redirect('login')
 
-
+@login_required(login_url='login')
 def latlong(request):
     if request.method =='POST':
         print('printing post data' , request.POST)
     return render(request, 'plasmasearchapp/latlong.html')
 
+
+@login_required(login_url='login')
 def testingpost(request):
     userlog = request.user
     if request.method == "POST":
@@ -149,6 +164,7 @@ def testingpost(request):
         return redirect('doneedash')
     
 
+@login_required(login_url='login')
 def infoform(request):
     form = userinfoform()
     userlog = request.user
@@ -184,7 +200,7 @@ def infoform(request):
                 Userinfo.objects.filter(user=userlog).update(first_name=afirst_name)
                 Userinfo.objects.filter(user=userlog).update(middle_name=amiddle_name)
                 Userinfo.objects.filter(user=userlog).update(last_name=alast_name)
-                Userinfo.objects.filter(user=userlog).update(last_name=aprofilepic)
+                Userinfo.objects.filter(user=userlog).update(profilepic=aprofilepic)
                 Userinfo.objects.filter(user=userlog).update(phoneno=aphoneno)
                 Userinfo.objects.filter(user=userlog).update(age=aage)
                 Userinfo.objects.filter(user=userlog).update(gender=agender)
@@ -237,3 +253,42 @@ def infoform(request):
 
     context = {'form': form}    
     return render(request, 'plasmasearchapp/infoform.html' ,context)
+
+
+    
+@login_required(login_url='login')
+def phoneotp(request):
+    
+    
+    if request.method == 'POST':
+        print(request.POST)
+        User = request.user
+        Userlog = request.user
+        userid = User.pk
+        userotp =request.POST['otp']
+        member = Userinfo.objects.get(user=User)
+        assignedotp=member.sentotp
+        print('assigned otp = ',assignedotp ,'userotp = ', userotp)
+        if str(userotp) == str(assignedotp):
+            print('otp is correct')
+            Userinfo.objects.filter(user=User).update(phoneverified=True)           
+            
+            return redirect('homepage')
+        else:
+            print('incorrect otp')
+    
+    else :
+        otp = random.randint(100000, 999999)
+        User = request.user
+        userid = User.pk
+        member = Userinfo.objects.get(user=User)
+        member.sentotp = otp
+        member.save()
+        number = member.phoneno
+        print('printing data',member.sentotp)
+        send_sms(number,otp)
+        
+
+    context = {}
+    
+    return render(request, 'plasmasearchapp/phoneotp.html',context)

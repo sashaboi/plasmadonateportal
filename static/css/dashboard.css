@@ -1,0 +1,244 @@
+.main-header{padding: 2em 15px;}
+.right-side{position: absolute;top: 0;right: 0;}
+.btn-outline-danger{color: #262626;}
+ul.links-tabs {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 6px rgb(0 0 0 / 8%);
+    border-radius: 20px;
+    padding: 3em 5px;
+    margin: 0 auto;
+    max-width: 85%;
+}
+ul.links-tabs li {
+    margin-bottom: 1em;
+    text-align: center;
+}
+ul.links-tabs li a {
+    font-weight: 500;
+    font-size: 12px;
+    color: #43454C;
+    text-decoration: none;
+}
+ul.links-tabs li.active a {
+    color: #B73030;
+}
+ul.links-tabs li img {
+    display: block;
+    margin: 0 auto;
+}
+section.banner-section {
+    margin: 0 0 2em;
+}
+section.banner-section .bg-white, section.banner-section .col-lg-9 img {
+    border-radius: 20px;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.08);
+}
+.main-left-box {
+    padding: 10px 15px;
+}
+.bottom-bot{
+    font-size: 16px;
+}
+.bottom-bot:after {
+    width: 80%;
+}
+ul.donar-list, .links-tabs {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+ul.donar-list li {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 6px rgb(0 0 0 / 8%);
+    border-radius: 20px;
+    padding: 12px;
+    margin-bottom: 20px;
+}
+ul.donar-list li:last-child, ul.links-tabs li:last-child, 
+ul#myTab li:last-child button {
+    margin: 0;
+}
+.distance-bgroup {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #E5E5E5;
+}
+.distance-bgroup div {
+    flex: 0 0 auto;
+    width: 50%;
+    padding: 0 0px 0 5px;
+    position: relative;
+}
+.distance-bgroup div p {
+    margin: 0;
+    color: #737476;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+}
+.distance-bgroup div h6 {
+    color: #262626;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+}
+.distance-bgroup div:first-child:after {
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 1px;
+    background: #E5E5E5;
+    display: block;
+    right: 15px;
+    top: 0;
+}
+.donar-detaisl {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.myperson {
+    display: flex;
+    align-items: center;
+    max-width: 90%;
+}
+.myperson img {
+    margin-right: 10px;
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+}
+.myperson h6 {
+    margin-bottom: 0;
+    color: #262626;
+    letter-spacing: 0.1em;
+    font-size: 14px;
+    line-height: 1.2;
+}
+.myperson p {
+    color: #737476;
+    font-size: 12px;
+}
+
+
+ul#myTab, ul#myTab li button {
+    border: 0;
+}
+ul#myTab {
+    margin-bottom: 1em!important;
+}
+ul#myTab li button {
+    font-size: 14px;
+    color: #737476;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    padding: 1em 4em .5em;
+    margin: 0 0 2em 0;
+}
+ul#myTab li button.active {
+    color: #B73030;
+    border-bottom: 2px solid #B73030;
+}
+ul.donar-list.request {
+    margin-bottom: 1em;
+}
+.donar-list.request .donar-detaisl:after {
+    content: "";
+    height: 100%;
+    position: absolute;
+    width: 1px;
+    background: #E5E5E5;
+    display: block;
+    right: 0;
+    top: 0;
+}
+ul.donar-list.request .distance-bgroup {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    position: relative;
+}
+.distance-bgroup.request div:first-child:after{display: none;}
+ul.donar-list.request .distance-bgroup {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    position: relative;
+    justify-content: flex-end;
+}
+ul.donar-list.request .distance-bgroup.request div {
+    width: 20%;
+    text-align: center;
+    padding: 0;
+}
+ul.donar-list.request .distance-bgroup.request div .correct, ul.donar-list.request .distance-bgroup.request .wrong {
+    background: #dcfce7;
+    box-shadow: 0 2.68036px 10.0513px rgb(41 91 40 / 4%), 0px 1.50259px 5.6347px rgb(41 91 40 / 4%), 0px 0.798012px 2.99255px rgb(41 91 40 / 3%), 0px 0.332071px 1.24527px rgb(41 91 40 / 2%);
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    margin: 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+ul.donar-list.request .distance-bgroup.request .wrong {
+    background: #fee2e2;
+}
+@media screen and (max-width:1025px) {
+    ul.donar-list.request .distance-bgroup.request div {
+        width: 30%;
+    }
+    ul.links-tabs {
+        max-width: 100%;
+        padding: 3em 3px;
+    }
+}
+@media screen and (max-width:991px) {
+    ul.links-tabs {
+        max-width: 50%;
+        display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 3em;
+    margin-bottom: 1em;
+    }
+    ul.donar-list.request .distance-bgroup {
+        justify-content: center;
+    }
+    ul.donar-list.request .distance-bgroup.request div {
+        width: auto;
+        padding: 2em 10px 10px;
+    }
+    ul.links-tabs li {
+        margin-bottom: 0;
+    }
+}
+@media screen and (max-width:800px) {
+    .right-side {
+        position: relative;
+    }
+}
+@media screen and (max-width:576px) {
+    ul.links-tabs {
+        max-width: 90%;
+    }
+    .donar-list.request .donar-detaisl{
+        padding-bottom: 10px;
+    }
+    .donar-list.request .donar-detaisl:after {
+        top: auto;
+        bottom: 0;
+        right: auto;
+        left: 0;
+        height: 1px;
+        width: 100%;
+    }
+    ul.donar-list.request .distance-bgroup {
+        margin: 10px 0;
+    }
+    ul.donar-list.request .distance-bgroup.request div {
+        padding: 0 10px;
+    }
+}
