@@ -50,6 +50,7 @@ class Userinfo(models.Model):
     long = models.CharField(max_length=30, null = True)
     sentotp = models.CharField(max_length=30, null = True)
     phoneverified = models.BooleanField(default=False)
+    isapproved = models.BooleanField(default=False)
     def __str__(self):
         return self.user.username
 

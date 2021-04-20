@@ -45,7 +45,7 @@ def donordash(request):
 
     
 
-    return render(request, 'plasmasearchapp/donordash.html',context)
+    return render(request, 'plasmasearchapp/donor-request.html',context)
 
 
 @login_required(login_url='login')
@@ -74,6 +74,7 @@ def doneedash(request):
                     print('bg matches')
                     userlist.append(user)
                     distancea.append(dist)
+                    
                     userlat = user.lat
                     userlong = user.long
                     folium.Marker(location =[userlat, userlong] , tooltip =(user.first_name , user.last_name)).add_to(m)
@@ -98,10 +99,10 @@ def doneedash(request):
     
 
     m = m._repr_html_()
+    zippeddata = zip(userlist,distancea)
+    context = {'zippeddata' : zippeddata , 'm': m}
 
-    context = {'userlist' : userlist , 'm': m}
-
-    return render(request, 'plasmasearchapp/doneedash.html',context)
+    return render(request, 'plasmasearchapp/donor-around-you.html',context)
 
 
 @unauthenticated_user
@@ -145,8 +146,17 @@ def logoutpage(request):
 
 @login_required(login_url='login')
 def latlong(request):
+    userlog = request.user
     if request.method =='POST':
         print('printing post data' , request.POST)
+        
+        alat=request.POST['lat']
+        along=request.POST['long']
+        Userinfo.objects.filter(user=userlog).update(lat=alat)
+        Userinfo.objects.filter(user=userlog).update(long=along)
+        print('info updated with lat :' , alat , 'and long: ' ,along)
+        return redirect('homepage')
+
     return render(request, 'plasmasearchapp/latlong.html')
 
 
@@ -188,8 +198,7 @@ def infoform(request):
                 aphoneno=form.cleaned_data['phoneno']
                 aage=form.cleaned_data['age']
                 agender=form.cleaned_data['gender']
-                alat=form.cleaned_data['lat']
-                along=form.cleaned_data['long']
+                
                 adesctext=form.cleaned_data['desctext']
                 acovidnegcert=form.cleaned_data['covidnegcert']
                 acovidnegdate=form.cleaned_data['covidnegdate']
@@ -204,8 +213,7 @@ def infoform(request):
                 Userinfo.objects.filter(user=userlog).update(phoneno=aphoneno)
                 Userinfo.objects.filter(user=userlog).update(age=aage)
                 Userinfo.objects.filter(user=userlog).update(gender=agender)
-                Userinfo.objects.filter(user=userlog).update(lat=alat)
-                Userinfo.objects.filter(user=userlog).update(long=along)
+                
                 Userinfo.objects.filter(user=userlog).update(first_name=afirst_name)
                 Userinfo.objects.filter(user=userlog).update(desctext=adesctext)
                 Userinfo.objects.filter(user=userlog).update(covidnegcert=acovidnegcert)

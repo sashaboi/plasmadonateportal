@@ -14,4 +14,4 @@ class CreateUserform(UserCreationForm):
 class userinfoform(ModelForm):
     class Meta:
         model = Userinfo
-        exclude = ['user' , 'sentotp','phoneverified']
+        exclude = ['user' , 'sentotp','phoneverified','lat','long']

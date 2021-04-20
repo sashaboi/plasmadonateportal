@@ -9,7 +9,7 @@
 <p><strong>Note:</strong> The geolocation property is not supported in IE8 and earlier versions.</p>
 <form action="" id="form">
   
-  <input type="submit" value="submit" action = "{% url 'doneedash' %}">
+  <input type="submit" value="submit" action = "{% url 'latlong' %}">
 </form>
 <p id="demo"></p>
 
@@ -40,13 +40,13 @@ function showPosition(position) {
     
     var fd = new FormData()
     
-    fd.append("lat" , lat)
-    fd.append("long" , long)
+    fd.append("lat" , lat);
+    fd.append("long" , long);
     
     
     
     fd.append("csrfmiddlewaretoken" , "{{csrf_token}}")
-    axios.post("testingpost" , fd)
+    axios.post("latlong" , fd)
       .then(function(resp){
         if(resp.data.status === "success"){
           form.reset()
